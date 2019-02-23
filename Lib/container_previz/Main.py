@@ -15,6 +15,7 @@ class Main:
 		self.tbl = op('opfind_projectors')
 		self.geos = op('folder_sets')
 		self.sets = op('opfind_sets')
+		self.cams = op('opfind_cameras')
 		return
 		
 	# projector functionality
@@ -52,6 +53,23 @@ class Main:
 		if op(o):
 			op(o).destroy()	
 		return
+		
+	# camera functionality
+	
+	def CreateCamera(self, newCameraName):
+		newCam = parent().copy(op('base_templates/geo_camera1'))
+		newCamID = GenerateID()
+		newCam.name = "camera_"+newCamID
+		newCam.par.Id = newCamID
+		newCam.par.Name = newCameraName
+		newCam.nodeX = (self.cams.numRows-1)*200
+		newCam.nodeY = 1400
+		return
+		
+	def RemoveCamera(self, o):
+		if op(o):
+			op(o).destroy()	
+		return
 	
 	# menu update functionality
 
@@ -79,6 +97,19 @@ class Main:
 
 		self.ownerComp.par.Sets.menuLabels = labels
 		self.ownerComp.par.Sets.menuNames = names
+		return
+		
+	def UpdateCamerasMenu(self):
+		labels = []
+		names = []
+		c = self.cams
+		for r in range(1,c.numRows):
+				name = op(c[r,'name']).par.Name
+				labels.append(name)
+				names.append(c[r,'name'])
+
+		self.ownerComp.par.Cameras.menuLabels = labels
+		self.ownerComp.par.Cameras.menuNames = names
 		return
 		
 	def UpdateGeometryFileMenu(self):
