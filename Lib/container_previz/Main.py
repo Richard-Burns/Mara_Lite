@@ -43,8 +43,10 @@ class Main:
 		newSet.name = "geo_set_"+newSetID
 		newSet.par.Id = newSetID
 		newSet.par.Name = newSetName
-		newSetFile = str(newSetFile)
-		newSet.par.Geometryfile = newSetFile
+		newSetFilePath = op('folder_sets')[int(newSetFile)+1,0]
+		
+		print(newSetFilePath)
+		newSet.par.Geometryfile = newSetFilePath
 		newSet.nodeX = (self.sets.numRows-1)*200
 		newSet.nodeY = 1200
 		return
